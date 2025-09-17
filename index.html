@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IME Priority Referral Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>IME Priority Referral Form</h1>
+            <p class="header-subtitle">Priority Assessment</p>
+        </header>
+
+        <!-- Progress Indicator -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Step 1 of 1</div>
+        </div>
+
+        <!-- Start Screen -->
+        <section id="startScreen" class="form-section active">
+            <div class="card">
+                <div class="card__body">
+                    <h2>Initial Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="claimNumber" class="form-label">Claim Number *</label>
+                        <input type="text" id="claimNumber" class="form-control" required placeholder="Enter claim number">
+                        <div class="error-message" id="claimNumberError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reasonSelection" class="form-label">Reason for Request *</label>
+                        <select id="reasonSelection" class="form-control" required>
+                            <option value="">Select a reason...</option>
+                            <option value="ime_booking">IME Booking +/- Flights, Hotel, Taxi, Interpreter and Translator Requests</option>
+                            <option value="ime_cancellation">IME Cancellation / Rescheduling</option>
+                            <option value="travel_requests">Flights / Hotel / Taxi / Interpreter / Translator Requests ONLY</option>
+                            <option value="file_release">File Release</option>
+                            <option value="report_followup">Report Follow Up</option>
+                            <option value="policy_contact">Policy Contact Update</option>
+                        </select>
+                        <div class="error-message" id="reasonSelectionError"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--primary" id="startNext">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cancellation Flow -->
+        <section id="cancellationScreen" class="form-section">
+            <div class="card">
+                <div class="card__body">
+                    <h2>IME Cancellation / Rescheduling</h2>
+                    
+                    <div class="form-group">
+                        <label for="appointmentDate" class="form-label">Appointment Date *</label>
+                        <input type="date" id="appointmentDate" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cancellationReason" class="form-label">Reason for Cancellation *</label>
+                        <select id="cancellationReason" class="form-control" required>
+                            <option value="">Select a reason...</option>
+                            <option value="no_longer_required">Appointment no longer required</option>
+                            <option value="claim_finalised">Claim finalised</option>
+                            <option value="provider_cancelled">IME provider cancelled the appointment</option>
+                            <option value="worker_unable">Worker unable to attend</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Is rescheduling needed? *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="rescheduleNeeded" value="yes" required>
+                                Yes
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="rescheduleNeeded" value="no" required>
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="additionalInfo" class="form-label">Additional Information (Optional)</label>
+                        <textarea id="additionalInfo" class="form-control" rows="4" placeholder="Any additional details..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" id="cancellationBack">Back</button>
+                        <button type="button" class="btn btn--primary" id="cancellationSubmit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IME Reason Selection -->
+        <section id="imeReasonScreen" class="form-section">
+            <div class="card">
+                <div class="card__body">
+                    <h2>Reason for IME</h2>
+                    
+                    <div class="form-group">
+                        <label for="imeReason" class="form-label">Select the reason for IME *</label>
+                        <select id="imeReason" class="form-control" required>
+                            <option value="">Select a reason...</option>
+                            <option value="regulator_direction">Regulator direction</option>
+                            <option value="ptsd_determination">Determine PTSD under presumptive legislation</option>
+                            <option value="claim_determination">Claim determination</option>
+                            <option value="claim_management">Claim management</option>
+                            <option value="secondary_injury">Determine secondary injury</option>
+                            <option value="weekly_compensation">Weekly compensation 2 year drop down (Indicative PI assessment)</option>
+                            <option value="pi_assessment">PI assessment</option>
+                            <option value="approved_escalation">Approved escalation</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" id="imeReasonBack">Back</button>
+                        <button type="button" class="btn btn--primary" id="imeReasonNext">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Claim Determination Flow -->
+        <section id="claimDeterminationScreen" class="form-section">
+            <div class="card">
+                <div class="card__body">
+                    <h2>Claim Determination</h2>
+                    
+                    <div class="form-group">
+                        <label for="injuryType" class="form-label">Type of Injury *</label>
+                        <select id="injuryType" class="form-control" required>
+                            <option value="">Select injury type...</option>
+                            <option value="physical">Physical injury</option>
+                            <option value="psychological">Psychological/psychiatric disorder</option>
+                            <option value="disease">Disease or latent onset injury</option>
+                            <option value="aggravation">Aggravation of pre-existing injury or disease</option>
+                            <option value="deafness">Industrial deafness</option>
+                            <option value="fatality">Fatality</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="determinationQuestion" class="form-label">What question needs to be answered? *</label>
+                        <select id="determinationQuestion" class="form-control" required>
+                            <option value="">Select a question...</option>
+                            <option value="injury_sustained">Has an injury has been sustained?</option>
+                            <option value="work_events">What work-related events or stressors caused the diagnosed injury?</option>
+                            <option value="contributing_factor">Is employment a significant contributing factor to the injury?</option>
+                            <option value="mechanism_consistent">Is the mechanism of injury consistent with diagnosis?</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="otherQuestionGroup" style="display: none;">
+                        <label for="otherQuestion" class="form-label">Please specify other question</label>
+                        <textarea id="otherQuestion" class="form-control" rows="3" placeholder="Describe the specific question..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" id="claimDeterminationBack">Back</button>
+                        <button type="button" class="btn btn--primary" id="claimDeterminationNext">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simple End Screens for Other Options -->
+        <section id="simpleEndScreen" class="form-section">
+            <div class="card">
+                <div class="card__body">
+                    <h2>Request Submitted</h2>
+                    <p>Your request has been processed and submitted to the appropriate team.</p>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" id="simpleEndBack">Back</button>
+                        <button type="button" class="btn btn--primary" id="simpleEndComplete">Generate Summary</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Priority Assessment Screen -->
+        <section id="priorityScreen" class="form-section">
+            <div class="card">
+                <div class="card__body">
+                    <h2>Priority Assessment</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Is this matter urgent/time sensitive? *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="isUrgent" value="yes" required>
+                                Yes
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="isUrgent" value="no" required>
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="urgencyReasonGroup" style="display: none;">
+                        <label for="urgencyReason" class="form-label">Reason for urgency</label>
+                        <textarea id="urgencyReason" class="form-control" rows="3" placeholder="Explain why this matter is urgent..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" id="priorityBack">Back</button>
+                        <button type="button" class="btn btn--primary" id="prioritySubmit">Complete Assessment</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Screen -->
+        <section id="summaryScreen" class="form-section">
+            <div class="card">
+                <div class="card__body">
+                    <h2>Request Summary</h2>
+                    <div id="summaryContent" class="summary-content"></div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" id="copyToClipboard">Copy to Clipboard</button>
+                        <button type="button" class="btn btn--outline" id="printToPDF">Print as PDF</button>
+                        <button type="button" class="btn btn--primary" id="startOver">Start New Form</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hidden textarea for copying -->
+        <textarea id="hiddenTextArea" style="position: absolute; left: -9999px; opacity: 0;"></textarea>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
